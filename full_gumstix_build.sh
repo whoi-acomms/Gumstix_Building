@@ -1,17 +1,30 @@
 #!/bin/bash
 
+# this script is an ugly hack, but hopefully streamlines the process
+
+cd ..
+
 # Bring the host/build computer up to speed with all tools and cross-compilers, etc.
 # Steps 1 and 2 of the documentation.
-sudo host_apt_install.sh
+sudo ./gumstix_dev_host/host_apt_install.sh
 
 # Get the u-boot source code from github, configure it, and build it.
-u-boot-get-and-build.sh
+./gumstix_dev_host/u-boot-get-and-build.sh
 
 # Get the Linux kernel source code from github, configure it, and build it
-kernel-get-and-build.sh
+./gumstix_dev_host/kernel-get-and-build.sh
+
+# make the boot directory
+mkdir -p boot
+cp u-boot/MLO boot/	# this must be done first, at least onto SD card
+cp u-boot/u-boot.img boot/
+cp linux/arch/arm/boot/uImage boot/
+cp linux/.config boot/kernel_config_XXXX
 
 # copy the Linux kernel modules
-kernel-make-modules-install.sh
+./gumstix_dev_host/kernel-make-modules-install.sh
 
 # build the Gumstix root file system
+mkdir -p rootfs
+sudo multistrap -f ./gumstix_dev_host/debian_rootfs_debian7.conf -d rootfs
 
