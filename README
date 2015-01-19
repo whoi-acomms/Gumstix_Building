@@ -1,0 +1,4 @@
+To configure and build a complete Gumstix SD card,
+follow steps in full_gumstix_build.sh, which itself
+calls multiple scripts.
+
