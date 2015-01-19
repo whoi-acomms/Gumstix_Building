@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source kernel-dev.env
+source gumstix_dev_host/kernel-dev.env
 
 git clone -n git://github.com/whoi-acomms/linux.git
 cd linux
