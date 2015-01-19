@@ -26,3 +26,4 @@ sudo multistrap -f ./gumstix_dev_host/debian_rootfs_debian7.conf -d rootfs
 
 # to do: still need to mount SD card, rsync, configure...
 
+
