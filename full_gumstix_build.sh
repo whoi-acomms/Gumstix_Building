@@ -14,17 +14,15 @@ sudo ./gumstix_dev_host/host_apt_install.sh
 # Get the Linux kernel source code from github, configure it, and build it
 ./gumstix_dev_host/kernel-get-and-build.sh
 
-# make the boot directory
-mkdir -p boot
-cp u-boot/MLO boot/	# this must be done first, at least onto SD card
-cp u-boot/u-boot.img boot/
-cp linux/arch/arm/boot/uImage boot/
-cp linux/.config boot/kernel_config_XXXX
+# make the boot directory and copy files to it
+./gumstix_dev_host/copy_boot_files.sh
 
-# copy the Linux kernel modules
+# install and tar up the Linux kernel modules
 ./gumstix_dev_host/kernel-make-modules-install.sh
 
 # build the Gumstix root file system
 mkdir -p rootfs
 sudo multistrap -f ./gumstix_dev_host/debian_rootfs_debian7.conf -d rootfs
+
+# to do: still need to mount SD card, rsync, configure...
 
