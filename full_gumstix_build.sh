@@ -21,8 +21,7 @@ sudo ./gumstix_dev_host/host_apt_install.sh
 ./gumstix_dev_host/kernel-make-modules-install.sh
 
 # build the Gumstix root file system
-mkdir -p rootfs
-sudo multistrap -f ./gumstix_dev_host/debian_rootfs_debian7.conf -d rootfs
+./gumstix_dev_host/create-gumstix.sh   # uses preseed.cfg and configscript.sh
 
 # to do: still need to mount SD card, rsync, configure...
 

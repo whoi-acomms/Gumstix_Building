@@ -12,16 +12,16 @@ dpkg --configure -a
 mount proc -t proc /proc
 dpkg --configure -a
 
-adduser --gecos "" --disabled-login acomms
-#echo "root:mitmit" | chpasswd 
-echo "acomms:acomms" | chpasswd
+adduser --gecos "" --disabled-login mituser
+echo "root:mitmit" | chpasswd 
+echo "mituser:mitmit" | chpasswd
 
-echo "acomms       ALL=(ALL) ALL" >> /etc/sudoers
+echo "mituser       ALL=(ALL) ALL" >> /etc/sudoers
 echo "proc            /proc           proc    defaults        0       0"  > /etc/fstab
 echo "nameserver 8.8.8.8" > /etc/resolv.conf
 
-echo "gumstix-$(date +%Y-%m-%d)"  > /etc/hostname
-echo "127.0.0.1   gumstix-$(date +%Y-%m-%d)"  >> /etc/hosts
+echo "gambero-$(date +%Y-%m-%d)"  > /etc/hostname
+echo "127.0.0.1   gambero-$(date +%Y-%m-%d)"  >> /etc/hosts
 echo "T0:2345:respawn:/sbin/getty -L 115200 ttyO2 vt102" >> /etc/inittab
 
 ln -s /usr/bin/zile /usr/local/bin/emacs
