@@ -5,5 +5,9 @@ source kernel-dev.env
 cd linux
 make modules_install INSTALL_MOD_PATH=../modules-XXXX
 cd ..
-tar zcvf modules-XXXX.tgz modules-XXXX
+# rm -rf modules-XXXX
+# mkdir -p modules-XXXX
+cd modules-XXXX
+tar zcvf ../modules-XXXX.tgz modules-XXXX
+cd ..
 
