@@ -4,7 +4,6 @@ echo "This script is quite a hack, but should get the job done..."
 
 echo "Install the debian packages required by the host."
 
-apt-get install emdebian-archive-keyring
 apt-get install multistrap
 apt-get install qemu
 apt-get install qemu-user-static
@@ -31,13 +30,4 @@ apt-get install chrpath
 apt-get install ccache
 apt-get install u-boot-tools
 apt-get install fakeroot
-
-
-echo "Install the cross-compiler debian packages required by the host."
-
-cp emdebian.list /etc/apt/sources.list.d/emdebian.list
-apt-get install gcc-4.7-arm-linux-gnueabihf
-
-#echo "List the armhf packages"
-#apt-cache search armhf
 
