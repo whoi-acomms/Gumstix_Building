@@ -2,3 +2,25 @@ To configure and build a complete Gumstix SD card,
 follow steps in full_gumstix_build.sh, which itself
 calls multiple scripts.
 
+Further notes from Toby Schneider:
+
+Date: Fri, 16 Jan 2015 15:26:47 -0500
+From: Toby Schneider <toby@gobysoft.org>
+To: Jim Partan <jpartan@whoi.edu>, Sandipa Singh <ssingh@whoi.edu>
+Subject: Scripting Gumstix rootfs creation
+
+Hi -
+
+As promised, I've attached some example files for scripting the rootfs creation (for Gumstix).
+
+These files will *have to be modified* to work with the packages that you have in your multistrap .conf file and for your slightly different setup.
+
+"create-gumstix.sh" is the master script that runs multistrap, copies the qemu emulator into the chroot, and then runs the "configscript.sh" from within the chroot to do everything Jim and I ran by hand today. "preseed.cfg" basically preloads answers dpkg so that you don't have to manually answer questions.
+
+The best way to find the configuration you need for preseed.cfg is to configure it once by hand to get a system you like (as we did already today), then run "debconf-get-selections" (from "apt-get install debconf-utils") to see what the correct syntax for the answer you gave was. The preseed.cfg I attached will answer the questions about "dash" and "locales". Depending on your packages, you may have more interactive questions to answer.
+
+Please let me know if you have any questions. If you can send me a copy of the updated build process document when you have it done, that would be great, and I'll check it over for omissions based on what we did today.
+
+-Toby
+
+PS: Regarding quickly building images for an x86 machine: you can use a similar process to create a rootfs for an x86 machine (e.g. acomms-gig-pc1) but you'll probably use "amd64" for the architecture, and you'll need to add "linux-image-amd64" and "grub2" for the kernel and bootloader, respectively (in your multistrap .conf). When you finish the multistrap setup, you'll want to run "dpkg-reconfigure grub-pc" to make grub prompt you to install it to a given device (typically "/dev/sdb" or "/dev/sbc", etc. - whatever the hard drive is connected to on the development host machine).
