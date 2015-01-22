@@ -12,14 +12,17 @@ dpkg --configure -a
 mount proc -t proc /proc
 dpkg --configure -a
 
-adduser --gecos "" --disabled-login acomms
+#adduser --gecos "" --disabled-login acomms
 #echo "root:mitmit" | chpasswd 
+adduser acomms
 echo "acomms:acomms" | chpasswd
 
 echo "acomms       ALL=(ALL) ALL" >> /etc/sudoers
 echo "proc            /proc           proc    defaults        0       0"  > /etc/fstab
 echo "nameserver 8.8.8.8" > /etc/resolv.conf
 
+#echo "test-gumstix-acomms2"  > /etc/hostname
+#echo "127.0.0.1   test-gumstix-acomms2"  >> /etc/hosts
 echo "gumstix-$(date +%Y-%m-%d)"  > /etc/hostname
 echo "127.0.0.1   gumstix-$(date +%Y-%m-%d)"  >> /etc/hosts
 echo "T0:2345:respawn:/sbin/getty -L 115200 ttyO2 vt102" >> /etc/inittab
@@ -51,9 +54,22 @@ hwaddress ether 00:41:43:4F:4D:04
 EOF
 
 echo "g_ether" >> /etc/modules
+echo "g_serial" >> /etc/modules
+#echo "libertas_sdio" >> /etc/modules
+
+# apt-get update
+# apt-get install python python-dev python-setuptools python-pip
+# pip install pyserial
+# pip install python-pytun
+# easy_install bitstring
+# easy_install bidict
+# apt-get install ...
+
+# apt-get clean
 
 for key in /tmp/*apt-key; do
     apt-key add $key
 done
 
 umount proc
+
