@@ -30,11 +30,24 @@ cat <<EOF > /etc/network/interfaces
 auto lo
 iface lo inet loopback
  
-auto usb0
-iface usb0 inet static
-address 10.42.0.20
-netmask 255.255.255.0
-gateway 10.42.0.1
+auto eth0
+# DHCP: test-gumstix-acomms2.whoi.edu, 128.128.208.102
+iface eth0 inet dhcp
+hwaddress ether 00:41:43:4F:4D:04
+
+# static IP
+#iface eth0 inet static
+#address 10.42.0.20
+#netmask 255.255.255.0
+#gateway 10.42.0.1
+
+# Wireless:
+#allow-hotplug wlan0
+#iface wlan0 inet dhcp
+#    wireless-mode managed
+#    wpa-ssid acommsnet
+#    wpa-psk whoi1930
+
 EOF
 
 echo "g_ether" >> /etc/modules
