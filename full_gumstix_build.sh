@@ -15,7 +15,8 @@ sudo ./gumstix_dev_host/install_cross_compiler.sh
 ./gumstix_dev_host/kernel-get-and-build.sh
 
 # make the boot directory and copy files to it
-./gumstix_dev_host/copy_boot_files.sh
+mkdir -p boot/
+./gumstix_dev_host/copy_boot_files.sh boot/
 
 # install and tar up the Linux kernel modules
 ./gumstix_dev_host/kernel-make-modules-install.sh
@@ -23,14 +24,29 @@ sudo ./gumstix_dev_host/install_cross_compiler.sh
 # build the Gumstix root file system
 ./gumstix_dev_host/create-gumstix.sh   # uses preseed.cfg and configscript.sh
 
-# to do: still need to mount SD card, rsync, configure...
-
 # insert SD card into USB reader
+
 # partition SD card
-# make boot directory
+sudo mk2partsd /dev/sdb
+
 # mount SD card's boot partition
+sudo mount /dev/sdb1 /mnt/boot
+
 # copy boot files
+sudo ./gumstix_dev_host/copy_boot_files.sh /mnt/boot/
+
 # unmount SD card's boot partition
+sudo umount /mnt/boot
+
+# mount SD card's rootfs partition
+sudo mount /dev/sdb2 /mnt/rootfs
 
 # rsync rootfs files to SD card's rootfs partition
+cd rootfs
+rsync -aP . /mnt/rootfs
+cd ..
 
+# unmount SD card's rootfs partition
+sudo umount /mnt/rootfs
+
+# to do: still need to configure...
