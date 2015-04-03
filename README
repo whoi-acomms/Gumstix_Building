@@ -5,8 +5,8 @@ calls multiple scripts.
 Further notes from Toby Schneider:
 
 Date: Fri, 16 Jan 2015 15:26:47 -0500
-From: Toby Schneider <toby@gobysoft.org>
-To: Jim Partan <jpartan@whoi.edu>, Sandipa Singh <ssingh@whoi.edu>
+From: Toby Schneider
+To: Jim Partan, Sandipa Singh
 Subject: Scripting Gumstix rootfs creation
 
 Hi -
