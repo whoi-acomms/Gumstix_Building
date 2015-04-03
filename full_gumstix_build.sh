@@ -15,8 +15,8 @@ sudo ./gumstix_dev_host/install_cross_compiler.sh
 ./gumstix_dev_host/kernel-get-and-build.sh
 
 # make the boot directory and copy files to it
-mkdir -p boot/
-./gumstix_dev_host/copy_boot_files.sh boot/
+mkdir -p ./boot
+./gumstix_dev_host/copy_boot_files.sh boot
 
 # install and tar up the Linux kernel modules
 ./gumstix_dev_host/kernel-make-modules-install.sh
@@ -33,7 +33,7 @@ sudo mk2partsd /dev/sdb
 sudo mount /dev/sdb1 /mnt/boot
 
 # copy boot files
-sudo ./gumstix_dev_host/copy_boot_files.sh /mnt/boot/
+sudo ./gumstix_dev_host/copy_boot_files.sh /mnt/boot
 
 # unmount SD card's boot partition
 sudo umount /mnt/boot
