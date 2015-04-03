@@ -56,6 +56,7 @@ EOF
 echo "g_ether" >> /etc/modules
 echo "g_serial" >> /etc/modules
 #echo "libertas_sdio" >> /etc/modules
+echo "blacklist libertas_sdio" > /etc/modprobe.d/libertas_sdio_blacklist.conf
 
 # apt-get update
 # apt-get install python python-dev python-setuptools python-pip
@@ -71,5 +72,6 @@ for key in /tmp/*apt-key; do
     apt-key add $key
 done
 
-umount proc
+svn checkout https://dev-acomms.whoi.edu/svn/Platforms/Gumstix_Configuration/ /home/acomms/Gumstix_Configuration
 
+umount proc
