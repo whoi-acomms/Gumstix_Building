@@ -44,6 +44,11 @@ sudo mount /dev/sdb2 /mnt/rootfs
 # rsync rootfs files to SD card's rootfs partition
 cd rootfs
 rsync -aP . /mnt/rootfs
+# extract modules-version.tgz onto /mnt/rootfs/lib/
+# update MAC address
+# add acomms-gpio file
+# get pyacomms
+# get Gumstix_Configuration
 cd ..
 
 # unmount SD card's rootfs partition
