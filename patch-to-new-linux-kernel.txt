@@ -1,0 +1,18 @@
+
+Here is the sequence to patch to a newer release of the linux-3.2.x kernel:
+
+git checkout whoi-3.2
+git branch whoi-3.2.68
+git checkout whoi-3.2.68
+git merge v3.2.68
+<fix conflict with cache-l2x0.c>
+git add cache-l2x0.c
+git commit
+git push -u origin whoi-3.2.68
+(assume origin is your github repository remote, you can check with "git remote -v")
+
+make oldconfig
+make include/linux/version.h
+make uImage
+make modules
+
