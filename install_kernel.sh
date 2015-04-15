@@ -25,9 +25,12 @@ sudo mount /dev/sdb2 /mnt/rootfs
 cd rootfs
 rsync -aP . /mnt/rootfs
 
-# unpack kernel modules
+# unpack kernel modules-XXX.tgz into /mnt/rootfs/lib
 cd /mnt/rootfs
 sudo tar zxvf /home/acomms/GumstixDevelopment/debian7_armhf/boot-3.2.68/modules-3.2.68whoi-acomms-00068-gc4a52ab.tgz
+# or for kernel-3.2.51: modules-3.2.51whoi-acomms-00069-g19edbad.tgz
+
+# update MAC address if desired in /mnt/rootfs/etc/network/interfaces
 
 # unmount SD card's rootfs partition
 sudo umount /mnt/rootfs
