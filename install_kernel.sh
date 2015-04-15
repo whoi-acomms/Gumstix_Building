@@ -25,15 +25,16 @@ sudo mount /dev/sdb2 /mnt/rootfs
 cd rootfs
 rsync -aP . /mnt/rootfs
 
-# clone the Acomms git repositories into Gumstix /home/acomms
-sudo git clone https://github.com/whoi-acomms/Gumstix_Testing.git
-sudo git clone https://github.com/whoi-acomms/Gumstix_Building.git
-sudo git clone https://github.com/whoi-acomms/pyacomms.git
-sudo git clone https://github.com/whoi-acomms/umodemd.git
-cd /mnt/rootfs/home
-sudo chown -R acomms.acomms acomms
-cd /mnt/rootfs
-cp ./home/acomms/Gumstix_Testing/scripts/init.d/acomms-gpio ./etc/init.d/.
+# Already done in the rootfs copy:
+## clone the Acomms git repositories into Gumstix /home/acomms
+#sudo git clone https://github.com/whoi-acomms/Gumstix_Testing.git
+#sudo git clone https://github.com/whoi-acomms/Gumstix_Building.git
+#sudo git clone https://github.com/whoi-acomms/pyacomms.git
+#sudo git clone https://github.com/whoi-acomms/umodemd.git
+#cd /mnt/rootfs/home
+#sudo chown -R acomms.acomms acomms
+#cd /mnt/rootfs
+#cp ./home/acomms/Gumstix_Testing/scripts/init.d/acomms-gpio ./etc/init.d/.
 
 # unpack kernel modules
 cd /mnt/rootfs
