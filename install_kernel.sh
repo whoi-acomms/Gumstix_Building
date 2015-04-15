@@ -16,6 +16,7 @@ sudo mount /dev/sdb1 /mnt/boot
 sudo ./gumstix_dev_host/copy_boot_files.sh /mnt/boot
 
 # unmount SD card's boot partition
+sync
 sudo umount /mnt/boot
 
 # mount SD card's rootfs partition
@@ -33,6 +34,7 @@ sudo tar zxvf /home/acomms/GumstixDevelopment/debian7_armhf/boot-3.2.68/modules-
 # update MAC address if desired in /mnt/rootfs/etc/network/interfaces
 
 # unmount SD card's rootfs partition
+sync
 sudo umount /mnt/rootfs
 
 # to do: still need to configure...
