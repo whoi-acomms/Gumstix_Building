@@ -23,7 +23,16 @@ sudo mount /dev/sdb2 /mnt/rootfs
 
 # rsync rootfs files to SD card's rootfs partition
 cd rootfs
-rsync -aP . /mnt/rootfs
+sudo rsync -aP . /mnt/rootfs
+
+# unpack kernel modules
+cd /mnt/rootfs
+sudo tar zxvf /home/acomms/GumstixDevelopment/debian7_armhf/boot-3.2.68/modules-3.2.68whoi-acomms-00068-gc4a52ab.tgz
+
+# unmount SD card's rootfs partition
+sudo umount /mnt/rootfs
+
+# to do: still need to configure...
 
 # Already done in the rootfs copy:
 ## clone the Acomms git repositories into Gumstix /home/acomms
@@ -36,12 +45,4 @@ rsync -aP . /mnt/rootfs
 #cd /mnt/rootfs
 #cp ./home/acomms/Gumstix_Testing/scripts/init.d/acomms-gpio ./etc/init.d/.
 
-# unpack kernel modules
-cd /mnt/rootfs
-sudo tar zxvf /home/acomms/GumstixDevelopment/debian7_armhf/boot-3.2.68/modules-3.2.68whoi-acomms-00068-gc4a52ab.tgz
-
-# unmount SD card's rootfs partition
-sudo umount /mnt/rootfs
-
-# to do: still need to configure...
 
