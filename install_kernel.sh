@@ -26,11 +26,11 @@ sudo umount /mnt/boot
 sudo umount /mnt/rootfs
 
 # exit with error if either /mnt/boot or /mnt/rootfs are mounted
-sudo mount --fake /mnt/boot   || (aplay /home/acomms/sounds/sd_card_error.wav && exit 1)
-sudo mount --fake /mnt/rootfs || (aplay /home/acomms/sounds/sd_card_error.wav && exit 1)
+sudo mount --fake /mnt/boot   || (aplay /home/acomms/sounds/sd_card_error.wav && echo "error on line $LINENO" && exit 1)
+sudo mount --fake /mnt/rootfs || (aplay /home/acomms/sounds/sd_card_error.wav && echo "error on line $LINENO" && exit 1)
 
 # partition SD card
-sudo ./gumstix_dev_host/mk2partsd /dev/sdb
+sudo ./gumstix_dev_host/mk2partsd /dev/sdb || (aplay /home/acomms/sounds/sd_card_error.wav && echo "error on line $LINENO" && exit 1)
 
 # mount SD card's boot partition
 sudo mount /dev/sdb1 /mnt/boot
@@ -45,7 +45,7 @@ sync
 sudo umount /mnt/boot
 
 # mount SD card's rootfs partition
-sudo mount /dev/sdb2 /mnt/rootfs || (aplay /home/acomms/sounds/sd_card_error.wav && exit 1)
+sudo mount /dev/sdb2 /mnt/rootfs || (aplay /home/acomms/sounds/sd_card_error.wav && echo "error on line $LINENO" && exit 1)
 
 # update rootfs git repositories
 cd rootfs
