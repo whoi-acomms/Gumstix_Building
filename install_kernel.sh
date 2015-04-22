@@ -22,14 +22,12 @@ pushd .
 # /dev/sdb1 /mnt/boot vfat noauto 0 0
 # /dev/sdb2 /mnt/rootfs ext3 noauto 0 0
 
-# Add this sleep because it sometimes takes a while for the
-# SD card to get mounted, and we want to unmount it before
-# attempting to partition.
-echo sleep 30
-sleep 30
-
 sudo umount /mnt/boot
 sudo umount /mnt/rootfs
+
+# exit with error if either /mnt/boot or /mnt/rootfs are mounted
+sudo mount --fake /mnt/boot   || aplay /home/acomms/sounds/sd_card_error.wav && exit 1
+sudo mount --fake /mnt/rootfs || aplay /home/acomms/sounds/sd_card_error.wav && exit 1
 
 # partition SD card
 sudo ./gumstix_dev_host/mk2partsd /dev/sdb
@@ -47,7 +45,7 @@ sync
 sudo umount /mnt/boot
 
 # mount SD card's rootfs partition
-sudo mount /dev/sdb2 /mnt/rootfs
+sudo mount /dev/sdb2 /mnt/rootfs || aplay /home/acomms/sounds/sd_card_error.wav && exit 1
 
 # update rootfs git repositories
 cd rootfs
