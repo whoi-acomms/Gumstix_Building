@@ -5,7 +5,7 @@
 STARTTIME=$(date +%s)
 
 # save the current working directory
-pushd
+pushd .
 
 # insert SD card into USB reader
 # and umount if it automounts, so it can be partitioned.
