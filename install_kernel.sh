@@ -26,8 +26,8 @@ sudo umount /mnt/boot
 sudo umount /mnt/rootfs
 
 # exit with error if either /mnt/boot or /mnt/rootfs are mounted
-sudo mount --fake /mnt/boot   || aplay /home/acomms/sounds/sd_card_error.wav && exit 1
-sudo mount --fake /mnt/rootfs || aplay /home/acomms/sounds/sd_card_error.wav && exit 1
+sudo mount --fake /mnt/boot   || (aplay /home/acomms/sounds/sd_card_error.wav && exit 1)
+sudo mount --fake /mnt/rootfs || (aplay /home/acomms/sounds/sd_card_error.wav && exit 1)
 
 # partition SD card
 sudo ./gumstix_dev_host/mk2partsd /dev/sdb
@@ -45,7 +45,7 @@ sync
 sudo umount /mnt/boot
 
 # mount SD card's rootfs partition
-sudo mount /dev/sdb2 /mnt/rootfs || aplay /home/acomms/sounds/sd_card_error.wav && exit 1
+sudo mount /dev/sdb2 /mnt/rootfs || (aplay /home/acomms/sounds/sd_card_error.wav && exit 1)
 
 # update rootfs git repositories
 cd rootfs
@@ -84,11 +84,11 @@ sleep 30
 sync
 sudo umount /mnt/rootfs
 
-aplay /home/acomms/sounds/sd_card_done.wav
-
 ENDTIME=$(date +%s)
 echo "Elapsed time: $(($ENDTIME - $STARTTIME)) seconds."
 date
+
+aplay /home/acomms/sounds/sd_card_done.wav
 
 # to do: still need to configure...
 
