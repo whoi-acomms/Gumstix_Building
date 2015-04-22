@@ -4,8 +4,32 @@
 
 STARTTIME=$(date +%s)
 
+# save the current working directory
+pushd
+
 # insert SD card into USB reader
-# and umount if it automounts, so it can be partitioned
+# and umount if it automounts, so it can be partitioned.
+#
+# Ubuntu: dconf-editor, org.gnome.desktop.media-handling, uncheck automount
+# Ubuntu: dconf-editor, org.gnome.desktop.media-handling, uncheck automount-open
+# Close dconf-editor (it seems to save itself?)
+#
+# Also, /etc/fstab has been edited to add the lines below
+# so that /dev/sdb1 and /dev/sdb2 come up where desired.
+# noauto doesn't quite seem to work as I had expected, though.
+#
+# Added to /etc/fstab:
+# /dev/sdb1 /mnt/boot vfat noauto 0 0
+# /dev/sdb2 /mnt/rootfs ext3 noauto 0 0
+
+# Add this sleep because it sometimes takes a while for the
+# SD card to get mounted, and we want to unmount it before
+# attempting to partition.
+echo sleep 30
+sleep 30
+
+sudo umount /mnt/boot
+sudo umount /mnt/rootfs
 
 # partition SD card
 sudo ./gumstix_dev_host/mk2partsd /dev/sdb
@@ -17,19 +41,30 @@ sudo mount /dev/sdb1 /mnt/boot
 sudo ./gumstix_dev_host/copy_boot_files.sh /mnt/boot
 
 # unmount SD card's boot partition
-echo sleep 60
-sleep 60
+echo sleep 30
+sleep 30
 sync
 sudo umount /mnt/boot
 
 # mount SD card's rootfs partition
 sudo mount /dev/sdb2 /mnt/rootfs
 
-# rsync rootfs files to SD card's rootfs partition
+# update rootfs git repositories
 cd rootfs
+cd home/acomms/Gumstix_Testing
+git pull
+cd ../Gumstix_Building
+git pull
+cd ../pyacomms
+git pull
+cd ../umodemd
+git pull
+cd ../../..
+
+# rsync rootfs files to SD card's rootfs partition
 sudo rsync -aP . /mnt/rootfs
-echo sleep 60
-sleep 60
+echo sleep 30
+sleep 30
 sync
 
 # unpack kernel modules-XXX.tgz into /mnt/rootfs/lib
@@ -42,11 +77,16 @@ sync
 
 # update MAC address if desired in /mnt/rootfs/etc/network/interfaces
 
+# return to the original directory, so we can unmount /mnt/rootfs
+popd
+
 # unmount SD card's rootfs partition
-echo sleep 300
-sleep 300
+echo sleep 30
+sleep 30
 sync
 sudo umount /mnt/rootfs
+
+aplay /home/acomms/sounds/sd_card_done.wav
 
 ENDTIME=$(date +%s)
 echo "Elapsed time: $(($ENDTIME - $STARTTIME)) seconds."
